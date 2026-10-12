@@ -8,11 +8,13 @@ local PATCHES = {
     [893973440]  = "https://raw.githubusercontent.com/m4j0rs/blackout-flee/refs/heads/main/flee.lua",
 }
 
+local FALLBACK_URL = "https://raw.githubusercontent.com/m4j0rs/universal-blackout-fallback/refs/heads/main/uni"
+
 local url = PATCHES[game.PlaceId]
 
 if not url then
-    warn("[Blackout] No script for this game. PlaceId: " .. tostring(game.PlaceId))
-    return
+    warn("[Blackout] No dedicated patch for PlaceId " .. tostring(game.PlaceId) .. " — loading universal fallback.")
+    url = FALLBACK_URL
 end
 
 local ok, err = pcall(function()
@@ -20,5 +22,5 @@ local ok, err = pcall(function()
 end)
 
 if not ok then
-    warn("[Blackout] Failed to load patch for " .. tostring(game.PlaceId) .. ": " .. tostring(err))
+    warn("[Blackout] Failed to load script for " .. tostring(game.PlaceId) .. ": " .. tostring(err))
 end
